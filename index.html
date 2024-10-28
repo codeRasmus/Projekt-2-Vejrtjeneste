@@ -17,24 +17,47 @@
   </head>
 
   <body>
-    <div id="wrapper">
-      <div id="input_container">
-        <input type="text" placeholder="Skriv bynavn" />
-        <button>Find vejr</button>
+    <div id="app">
+      <div id="top_container">
+        <a href="index.html"><h2>D M I</h2></a>
+        <i class="fa-solid fa-magnifying-glass"></i>
       </div>
-      <div id="endpoints">
-        <h1 id="location"></h1>
-        <h1 id="overallConditionText"></h1>
-        <img id="overallConditionIcon" />
-
-        <h1 id="temperature"></h1>
-        <h1 id="feelslike"></h1>
-        <h1 id="windspeed"></h1>
-        <h1 id="gust"></h1>
-        <h1 id="humidity"></h1>
-        <h1 id="uv"></h1>
+      <div id="content_wrapper">
+        <div id="content">
+          <h1 id="location"></h1>
+          <div id="content_container">
+            <div id="left_content">
+              <img src="" alt="" id="overallConditionIcon" />
+            </div>
+            <div id="right_content">
+              <h1 id="temperature"></h1>
+              <h1 id="feelslike">Føles som</h1>
+              <h1 id="windspeed"></h1>
+            </div>
+          </div>
+        </div>
+        <div id="endpoints" hidden>
+          <h1 id="location"></h1>
+          <h1 id="overallConditionText"></h1>
+          <img id="overallConditionIcon" />
+          <h1 id="temperature"></h1>
+          <h1 id="feelslike"></h1>
+          <h1 id="windspeed"></h1>
+          <h1 id="gust"></h1>
+          <h1 id="humidity"></h1>
+          <h1 id="uv"></h1>
+        </div>
       </div>
+      <nav>
+        <ul>
+          <a href="vejr.html"><li>Vejr</li></a>
+          <a href="radar.html"><li>Radar</li></a>
+          <a href="data.html"> <li>Data</li></a>
+          <a href="varsler.html"><li>Varsler</li></a>
+        </ul>
+      </nav>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

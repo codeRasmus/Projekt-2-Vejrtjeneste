@@ -1,12 +1,8 @@
 "use strict";
-let cityInput = document.querySelector("input");
+let cityInput = prompt("Skriv den by du vil have vejr på");
 let btn = document.querySelector("button");
 
-btn.addEventListener("click", handleButtonClick);
-
-function handleButtonClick() {
-  fetchWeatherData(cityInput.value);
-}
+fetchWeatherData(cityInput);
 
 async function fetchWeatherData(city) {
   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=9f78e267248a400990a145120242710&q=${city}&aqi=no`;
@@ -19,6 +15,7 @@ async function fetchWeatherData(city) {
     const data = await response.json();
 
     if (data) {
+      console.log("We've got data");
       insertData(data);
     } else {
       console.log("Kunne ikke finde vejroplysninger for den valgte by.");
@@ -31,11 +28,10 @@ async function fetchWeatherData(city) {
 function insertData(data) {
   // Endpoint variabler
   let locationCity = data.location.name;
-  let locationCountry = data.location.country;
   let overallConditionText = data.current.condition.text;
   let overallConditionIcon = data.current.condition.icon;
-  let temperature = data.current.temp_c;
-  let feelsLike = data.current.feelslike_c;
+  let temperature = Math.trunc(data.current.temp_c);
+  let feelsLike = Math.trunc(data.current.feelslike_c);
   let windspeed = data.current.wind_kph;
   let gust = data.current.gust_kph;
   let humidity = data.current.humidity;
@@ -53,12 +49,12 @@ function insertData(data) {
   let uvTag = document.getElementById("uv");
 
   // Updater DOM
-  locationTag.textContent = locationCity + ", " + locationCountry;
+  locationTag.textContent = locationCity;
   overallConditionTextTag.textContent = overallConditionText;
   overallConditionIconTag.src = overallConditionIcon;
-  temperatureTag.textContent = `${temperature}°C`;
-  feelsLikeTag.textContent = `Feels like: ${feelsLike}°C`;
-  windspeedTag.textContent = `${windspeed} kph`;
+  temperatureTag.textContent = `${temperature}°`;
+  feelsLikeTag.textContent += ` ${feelsLike}°`;
+  windspeedTag.textContent = `${windspeed} km/t`;
   gustTag.textContent = `Gusts: ${gust} kph`;
   humidityTag.textContent = `Humidity: ${humidity}%`;
   uvTag.textContent = `UV Index: ${uv}`;
