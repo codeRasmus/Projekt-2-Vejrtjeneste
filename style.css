@@ -28,6 +28,11 @@ body {
   position: relative;
 }
 
+#top_container {
+  height: 80px;
+  background-color: white;
+}
+
 #top_container h2 {
   position: absolute;
   top: 30px;
@@ -47,13 +52,11 @@ body {
   align-items: center; */
 }
 
-#content_wrapper {
-  margin-top: 70px;
-}
-
 #content_wrapper #content_container {
   display: flex;
+  justify-content: center;
   align-items: center;
+  border-bottom: solid 1px black;
 }
 
 #content_wrapper #content_container div {
@@ -85,12 +88,46 @@ body {
   font-weight: 400;
   letter-spacing: 0rem;
 }
-
 #content_wrapper #content #windspeed::before {
   display: inline-block;
   content: "➤";
   transform: rotate(-45deg);
   margin: 5px;
+}
+
+#subData {
+  border-bottom: solid 1px black;
+}
+#subData h1 {
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 20px 40px;
+}
+#subData #summary {
+  margin-bottom: 20px;
+}
+#subData #windDegree::before {
+  content: "";
+  display: inline-block;
+}
+#subData #precip::before {
+  content: "";
+  display: inline-block;
+}
+#subData#gust::before {
+  content: "";
+  display: inline-block;
+}
+
+#table {
+  display: flex;
+  justify-content: center;
+}
+
+#table img {
+  margin: 40px;
+  width: 320px;
+  height: 100%;
 }
 
 /* BOTTOM NAVIGATION */
@@ -100,6 +137,7 @@ nav {
   bottom: 20px;
   height: 50px;
   border-top: solid 1px black;
+  background-color: white;
 }
 
 nav ul {
@@ -112,6 +150,11 @@ nav ul {
 a {
   text-decoration: none;
   color: black;
+}
+
+.radar {
+  height: 630px;
+  width: 100%;
 }
 
 /* LEVN */

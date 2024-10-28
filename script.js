@@ -34,6 +34,8 @@ function insertData(data) {
   let feelsLike = Math.trunc(data.current.feelslike_c);
   let windspeed = data.current.wind_kph;
   let gust = data.current.gust_kph;
+  let windDir = getWindDirection(data.current.wind_degree);
+  let precip = data.current.precip_mm;
   let humidity = data.current.humidity;
   let uv = data.current.uv;
 
@@ -44,7 +46,9 @@ function insertData(data) {
   let temperatureTag = document.getElementById("temperature");
   let feelsLikeTag = document.getElementById("feelslike");
   let windspeedTag = document.getElementById("windspeed");
+  let windDirTag = document.getElementById("windDegree");
   let gustTag = document.getElementById("gust");
+  let precipTag = document.getElementById("precip");
   let humidityTag = document.getElementById("humidity");
   let uvTag = document.getElementById("uv");
 
@@ -55,7 +59,42 @@ function insertData(data) {
   temperatureTag.textContent = `${temperature}°`;
   feelsLikeTag.textContent += ` ${feelsLike}°`;
   windspeedTag.textContent = `${windspeed} km/t`;
-  gustTag.textContent = `Gusts: ${gust} kph`;
+  windDirTag.textContent = `Vindretning: ${windDir}`;
+  gustTag.textContent = `Vindstød: ${Math.trunc((gust * 1000) / 3600)} m/s`;
+  precipTag.textContent = `Nedbør: ${Math.trunc(precip)} mm`;
   humidityTag.textContent = `Humidity: ${humidity}%`;
   uvTag.textContent = `UV Index: ${uv}`;
+}
+
+function getWindDirection(data) {
+  switch (true) {
+    case 0:
+    case 360:
+      return "N";
+      break;
+    case 90:
+      return "E";
+      break;
+    case 180:
+      return "S";
+      break;
+    case 270:
+      return "W";
+      break;
+    case data > 0 && data < 90:
+      return "NE";
+      break;
+    case data > 90 && data < 180:
+      return "SE";
+      break;
+    case data > 180 && data < 270:
+      return "SW";
+      break;
+    case data > 270 && data < 360:
+      return "NW";
+      break;
+    default:
+      return "-";
+      break;
+  }
 }
