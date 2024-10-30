@@ -14,18 +14,48 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app">
+    <div class="app" id="varsler">
       <div id="top_container">
-        <a href="index.html"><h2>D M I</h2></a>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <a href="index.html"><h2 id="logo">D M I</h2></a>
       </div>
-
+      <img src="assets/icons/Danger-Triangle-solid.svg" alt="" />
+      <div id="content_wrapper">
+        <div id="content">
+          <div id="content_container" style="flex-direction: column">
+            <p>
+              <b>Varslingniveau:</b> <span style="color: #c98d01">Orange</span>
+            </p>
+            <p>
+              <b>Område:</b> <br />
+              Sydjylland og Fyn
+            </p>
+            <p>
+              <b>Periode:</b> <br />Torsdag d. 31. oktober kl. 12:00 <br />
+              til Fredag d. 1. november kl. 06:00
+            </p>
+            <p>
+              <b>Situation:</b> <br />
+              Et kraftigt stormvejr rammer Sydjylland- og Fyn med vindstød op
+              til 35 m/s og nedbørsmængder på 30-50 mm. Der er risiko for
+              oversvømmelser i lavtliggende områder.
+            </p>
+            <p>
+              <b>Anbefalinger:</b> <br />
+              • Undgå unødvendig udendørs aktivitet. <br />
+              • Sikr løse genstande i haven og på altaner. <br />
+              • Følg DMI’s opdateringer på appen eller dmi.dk.
+            </p>
+          </div>
+        </div>
+      </div>
       <nav>
         <ul>
           <a href="vejr.html"><li>Vejr</li></a>
           <a href="radar.html"><li>Radar</li></a>
           <a href="data.html"> <li>Data</li></a>
-          <a href="varsler.html"><li style="font-weight: 600">Varsler</li></a>
+          <a href="varsler.html"
+            ><li style="font-weight: 600" class="warning">Varsler</li></a
+          >
         </ul>
       </nav>
     </div>

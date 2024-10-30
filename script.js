@@ -1,8 +1,18 @@
 "use strict";
-let cityInput = prompt("Skriv den by du vil have vejr på");
-let btn = document.querySelector("button");
+document
+  .querySelector(".fa-magnifying-glass")
+  .addEventListener("click", function () {
+    const searchInput = document.getElementById("searchinput");
+    searchInput.classList.toggle("active");
+    handleClick(searchInput.value);
+  });
 
-fetchWeatherData(cityInput);
+function handleClick(data) {
+  if (data) {
+    fetchWeatherData(data);
+    document.getElementById("placeholder").style.display = "none";
+  }
+}
 
 async function fetchWeatherData(city) {
   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=9f78e267248a400990a145120242710&q=${city}&aqi=no`;
@@ -13,9 +23,9 @@ async function fetchWeatherData(city) {
     }
 
     const data = await response.json();
-
     if (data) {
-      console.log("We've got data");
+      document.querySelector("#content_wrapper").removeAttribute("hidden");
+      console.log("We've got data: ", data);
       insertData(data);
     } else {
       console.log("Kunne ikke finde vejroplysninger for den valgte by.");
@@ -29,72 +39,85 @@ function insertData(data) {
   // Endpoint variabler
   let locationCity = data.location.name;
   let overallConditionText = data.current.condition.text;
-  let overallConditionIcon = data.current.condition.icon;
   let temperature = Math.trunc(data.current.temp_c);
   let feelsLike = Math.trunc(data.current.feelslike_c);
   let windspeed = data.current.wind_kph;
   let gust = data.current.gust_kph;
   let windDir = getWindDirection(data.current.wind_degree);
   let precip = data.current.precip_mm;
-  let humidity = data.current.humidity;
-  let uv = data.current.uv;
 
   // DOM-elementer
   let locationTag = document.getElementById("location");
-  let overallConditionTextTag = document.getElementById("overallConditionText");
   let overallConditionIconTag = document.getElementById("overallConditionIcon");
   let temperatureTag = document.getElementById("temperature");
   let feelsLikeTag = document.getElementById("feelslike");
-  let windspeedTag = document.getElementById("windspeed");
   let windDirTag = document.getElementById("windDegree");
   let gustTag = document.getElementById("gust");
   let precipTag = document.getElementById("precip");
-  let humidityTag = document.getElementById("humidity");
-  let uvTag = document.getElementById("uv");
 
   // Updater DOM
   locationTag.textContent = locationCity;
-  overallConditionTextTag.textContent = overallConditionText;
-  overallConditionIconTag.src = overallConditionIcon;
+  console.log(overallConditionText);
+  overallConditionIconTag.src = getIcon(overallConditionText);
   temperatureTag.textContent = `${temperature}°`;
-  feelsLikeTag.textContent += ` ${feelsLike}°`;
-  windspeedTag.textContent = `${windspeed} km/t`;
-  windDirTag.textContent = `Vindretning: ${windDir}`;
+  feelsLikeTag.textContent = `Føles som: ${feelsLike}°`;
+  windDirTag.textContent = `${windDir} - ${Math.round(
+    Math.trunc(windspeed * 1000) / 3600
+  )} m/s`;
   gustTag.textContent = `Vindstød: ${Math.trunc((gust * 1000) / 3600)} m/s`;
   precipTag.textContent = `Nedbør: ${Math.trunc(precip)} mm`;
-  humidityTag.textContent = `Humidity: ${humidity}%`;
-  uvTag.textContent = `UV Index: ${uv}`;
+}
+function getWindDirection(degree) {
+  if (degree === 0 || degree === 360) return "N";
+  if (degree === 90) return "E";
+  if (degree === 180) return "S";
+  if (degree === 270) return "W";
+  if (degree > 0 && degree < 90) return "NE";
+  if (degree > 90 && degree < 180) return "SE";
+  if (degree > 180 && degree < 270) return "SW";
+  if (degree > 270 && degree < 360) return "NW";
+  return "-";
 }
 
-function getWindDirection(data) {
-  switch (true) {
-    case 0:
-    case 360:
-      return "N";
+function getIcon(overallConditionText) {
+  switch (overallConditionText) {
+    case "Partly cloudy":
+      return "assets/icons/partly_cloudy_day.svg";
       break;
-    case 90:
-      return "E";
+    case "Overcast":
+      return "assets/icons/double_cloud.svg";
       break;
-    case 180:
-      return "S";
+    case "Sunny":
+      return "assets/icons/clear_sky_day.svg";
       break;
-    case 270:
-      return "W";
+    case "Clear":
+      return "assets/icons/clear_sky_day.svg";
       break;
-    case data > 0 && data < 90:
-      return "NE";
+    case "Light rain":
+      return "assets/icons/rain.svg";
       break;
-    case data > 90 && data < 180:
-      return "SE";
+    case "Mist":
+      return "assets/icons/fog.svg";
       break;
-    case data > 180 && data < 270:
-      return "SW";
-      break;
-    case data > 270 && data < 360:
-      return "NW";
+    case "Light drizzle":
+      return "assets/icons/rain.svg";
       break;
     default:
       return "-";
       break;
   }
 }
+
+function changeTable() {
+  const img = document.querySelector("#table img");
+
+  if (img.src.includes("assets/scrndump_table_days.png")) {
+    img.src = "assets/scrndump_table_hours.png";
+    document.getElementById("prognosis").textContent = "Time for time";
+  } else {
+    img.src = "assets/scrndump_table_days.png";
+    document.getElementById("prognosis").textContent = "5-døgns prognose";
+  }
+}
+
+document.querySelector("#table img").addEventListener("click", changeTable);

@@ -12,55 +12,64 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="https://dmi.dk/typo3conf/ext/dmi_sitepackage/Resources/Public/Icons/favicon.ico"
+      type="image/png"
+    />
 
     <title>Vejrtjeneste</title>
   </head>
 
   <body>
-    <div id="app">
+    <div class="app">
       <div id="top_container">
-        <a href="index.html"><h2>D M I</h2></a>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <a href="index.html"><h2 id="logo">D M I</h2></a>
+        <div class="top_icon_container">
+          <input type="text" id="searchinput" placeholder="Skriv bynavn..." />
+
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
       </div>
-      <div id="content_wrapper">
+      <div id="placeholder">
+        <h1>
+          Brug søgefunktionen eller vælg en favorit til at få vejret på din by
+        </h1>
+      </div>
+      <div id="content_wrapper" hidden>
         <div id="content">
-          <h1 id="location"></h1>
+          <p id="location"></p>
           <div id="content_container">
             <div id="left_content">
               <img src="" alt="" id="overallConditionIcon" />
             </div>
             <div id="right_content">
-              <h1 id="temperature"></h1>
-              <h1 id="feelslike">Føles som</h1>
-              <h1 id="windspeed"></h1>
+              <p id="temperature"></p>
+              <p id="feelslike">Føles som</p>
+              <p id="windDegree"></p>
             </div>
           </div>
           <div id="subData">
-            <h1 id="summary">Skyet, stedvis regn, mulighed for sol</h1>
-            <h1 id="windDegree"></h1>
-            <h1 id="gust"></h1>
-            <h1 id="precip"></h1>
+            <p id="summary">Skyet, stedvis regn, mulighed for sol</p>
+            <p id="gust"></p>
+            <p id="precip"></p>
+            <p id="sunUp">kl. 07:24</p>
+            <p id="sunDown">kl. 16.49</p>
           </div>
-          <div id="table"><img src="assets/scrndump_table.png" alt="" /></div>
-        </div>
-        <div id="endpoints" hidden>
-          <h1 id="location"></h1>
-          <h1 id="overallConditionText"></h1>
-          <img id="overallConditionIcon" />
-          <h1 id="temperature"></h1>
-          <h1 id="feelslike"></h1>
-          <h1 id="windspeed"></h1>
-          <h1 id="gust"></h1>
-          <h1 id="humidity"></h1>
-          <h1 id="uv"></h1>
+          <div id="table">
+            <p id="prognosis">Time for time</p>
+            <img src="assets/scrndump_table_hours.png" alt="" />
+          </div>
         </div>
       </div>
+
       <nav>
         <ul>
           <a href="vejr.html"><li>Vejr</li></a>
           <a href="radar.html"><li>Radar</li></a>
           <a href="data.html"> <li>Data</li></a>
-          <a href="varsler.html"><li>Varsler</li></a>
+          <a href="varsler.html"><li class="warning">Varsler</li></a>
         </ul>
       </nav>
     </div>
