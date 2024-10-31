@@ -18,11 +18,13 @@ async function fetchWeatherData(city) {
   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=9f78e267248a400990a145120242710&q=${city}&aqi=no`;
   try {
     const response = await fetch(apiUrl);
+
     if (!response.ok) {
       throw new Error("Kunne ikke hente data. Tjek bynavn og prøv igen.");
     }
 
     const data = await response.json();
+
     if (data) {
       document.querySelector("#content_wrapper").removeAttribute("hidden");
       console.log("We've got data: ", data);
@@ -44,7 +46,10 @@ function insertData(data) {
   let windspeed = data.current.wind_kph;
   let gust = data.current.gust_kph;
   let windDir = getWindDirection(data.current.wind_degree);
+  let windDeg = data.current.wind_degree;
   let precip = data.current.precip_mm;
+
+  setDirIcon(windDeg);
 
   // DOM-elementer
   let locationTag = document.getElementById("location");
@@ -69,14 +74,21 @@ function insertData(data) {
 }
 function getWindDirection(degree) {
   if (degree === 0 || degree === 360) return "N";
-  if (degree === 90) return "E";
+  if (degree === 90) return "Ø";
   if (degree === 180) return "S";
-  if (degree === 270) return "W";
-  if (degree > 0 && degree < 90) return "NE";
-  if (degree > 90 && degree < 180) return "SE";
-  if (degree > 180 && degree < 270) return "SW";
-  if (degree > 270 && degree < 360) return "NW";
+  if (degree === 270) return "V";
+  if (degree > 0 && degree < 90) return "NØ";
+  if (degree > 90 && degree < 180) return "SØ";
+  if (degree > 180 && degree < 270) return "SV";
+  if (degree > 270 && degree < 360) return "NV";
   return "-";
+}
+
+function setDirIcon(degree) {
+  const windIcon = document.getElementById("windicon");
+  if (windIcon) {
+    windIcon.style.transform = `rotate(${degree + 90}deg)`;
+  }
 }
 
 function getIcon(overallConditionText) {
@@ -85,6 +97,9 @@ function getIcon(overallConditionText) {
       return "assets/icons/partly_cloudy_day.svg";
       break;
     case "Overcast":
+      return "assets/icons/double_cloud.svg";
+      break;
+    case "Cloudy":
       return "assets/icons/double_cloud.svg";
       break;
     case "Sunny":
