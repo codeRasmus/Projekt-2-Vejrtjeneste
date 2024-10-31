@@ -66,6 +66,7 @@ function insertData(data) {
   overallConditionIconTag.src = getIcon(overallConditionText);
   temperatureTag.textContent = `${temperature}°`;
   feelsLikeTag.textContent = `Føles som: ${feelsLike}°`;
+  setDirIcon(windDeg);
   windDirTag.textContent = `${windDir} - ${Math.round(
     Math.trunc(windspeed * 1000) / 3600
   )} m/s`;
