@@ -210,7 +210,7 @@ body {
 
 /* Table Container */
 #table {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;

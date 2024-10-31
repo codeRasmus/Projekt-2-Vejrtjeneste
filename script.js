@@ -68,9 +68,9 @@ function insertData(data) {
   feelsLikeTag.textContent = `Føles som: ${feelsLike}°`;
   setDirIcon(windDeg);
   windDirTag.textContent = `${windDir} - ${Math.round(
-    Math.trunc(windspeed * 1000) / 3600
+    Math.trunc(windspeed / 3.6)
   )} m/s`;
-  gustTag.textContent = `Vindstød: ${Math.trunc((gust * 1000) / 3600)} m/s`;
+  gustTag.textContent = `Vindstød: ${Math.trunc(gust / 3.6)} m/s`;
   precipTag.textContent = `Nedbør: ${Math.trunc(precip)} mm`;
 }
 function getWindDirection(degree) {
